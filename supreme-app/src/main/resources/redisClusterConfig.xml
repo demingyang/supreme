@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<redisCluster>
+	<!--userRoute -->
+	<clusterGroup proPrefix="${redis.prefix}" >
+		<server host="${redis.host1}" port="${redis.port1}"></server>
+		<server host="${redis.host2}" port="${redis.port2}"></server>
+		<server host="${redis.host3}" port="${redis.port3}"></server>
+		<server host="${redis.host4}" port="${redis.port4}"></server>
+		<server host="${redis.host5}" port="${redis.port5}"></server>
+		<server host="${redis.host6}" port="${redis.port6}"></server>
+		<server host="${redis.host7}" port="${redis.port7}"></server>
+		<server host="${redis.host8}" port="${redis.port8}"></server>
+		<server host="${redis.host9}" port="${redis.port9}"></server>
+	</clusterGroup>
+
+</redisCluster>
