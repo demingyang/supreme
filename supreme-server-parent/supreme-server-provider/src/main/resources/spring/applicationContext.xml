@@ -39,18 +39,29 @@
 		<context:exclude-filter type="annotation"
 								expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	<!-- 配置数据源 -->
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-		init-method="init" destroy-method="close">
-		<property name="url" value="${db.master.url}" />
-		<property name="username" value="${db.master.user}" />
-		<property name="password" value="${db.master.pass}" />
 
+
+	<!-- 配置多数据源映射关系 -->
+	<bean id="dataSource" class="com.dateSource.DynamicDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="dataSourceDJ" value-ref="dataSourceDJ" />
+				<entry key="dataSourceHR" value-ref="dataSourceHR" />
+			</map>
+		</property>
+		<!-- 默认目标数据源为你主库数据源 -->
+		<property name="defaultTargetDataSource" ref="dataSourceDJ" />
+	</bean>
+
+	<bean id="dataSourceDJ" class="com.alibaba.druid.pool.DruidDataSource"
+		  init-method="init" destroy-method="close">
+		<property name="url" value="${db.dj.url}" />
+		<property name="username" value="${db.dj.user}" />
+		<property name="password" value="${db.dj.pwd}" />
 		<!-- 监控数据库 -->
 		<property name="filters">
 			<value>stat</value>
 		</property>
-
 		<!-- 获取连接最大等待时间 -->
 		<property name="maxWait">
 			<value>${maxWait}</value>
@@ -69,7 +80,6 @@
 		<property name="minIdle">
 			<value>${minIdle}</value>
 		</property>
-
 		<!-- 在进行borrowObject进行处理时，对拿到的connection进行validateObject校验 -->
 		<property name="testOnBorrow">
 			<value>false</value>
@@ -83,9 +93,9 @@
 			<value>true</value>
 		</property>
 		<!--进行检测使用的有效的SQL语句 -->
-		<property name="validationQuery">
-			<value>SELECT 'x'</value>
-		</property>
+		<!-- 		<property name="validationQuery">
+                    <value>SELECT 1</value>
+                </property> -->
 
 		<!--每隔多少时间检测一次(默认毫秒)，根据mysql：wait_timeout值来设定 -->
 		<property name="timeBetweenEvictionRunsMillis">
@@ -95,15 +105,12 @@
 		<property name="minEvictableIdleTimeMillis">
 			<value>${minEvictableIdleTimeMillis}</value>
 		</property>
-
 		<!-- 开启池的prepared statement 池功能 -->
 		<property name="poolPreparedStatements">
 			<value>true</value>
 		</property>
 		<!-- 不限制 statement池能够同时分配的打开的statements的最大数量, 如果设置为0表示不限制 -->
 		<!-- <property name="maxOpenPreparedStatements" value="${maxOpenPreparedStatements}"></property> -->
-
-
 		<!-- 超过removeAbandonedTimeout时间后，是否进行没用连接（废弃）的回收（默认为false) -->
 		<property name="removeAbandoned" value="${removeAbandoned}" />
 		<!-- 超过时间限制，回收没有用(废弃)的连接（单位秒，默认为 300秒，5分钟） -->
@@ -114,6 +121,72 @@
 		<property name="logAbandoned" value="${logAbandoned}"></property>
 	</bean>
 
+	<bean id="dataSourceHR" class="com.alibaba.druid.pool.DruidDataSource"
+		  init-method="init" destroy-method="close">
+		<property name="url" value="${db.hr.url}" />
+		<property name="username" value="${db.hr.user}" />
+		<property name="password" value="${db.hr.pwd}" />
+		<!-- 监控数据库 -->
+		<property name="filters">
+			<value>stat</value>
+		</property>
+		<!-- 获取连接最大等待时间 -->
+		<property name="maxWait">
+			<value>${maxWait}</value>
+		</property>
+		<!--maxActive: 最大连接数量 -->
+		<property name="maxActive">
+			<value>${maxActive}</value>
+		</property>
+		<!--initialSize: 初始化连接 -->
+		<property name="initialSize">
+			<value>${initialSize}</value>
+		</property>
+		<!--maxIdle: 最大空闲连接 -->
+		<!-- <property name="maxIdle" value="${maxIdle}" /> -->
+		<!--minIdle: 最小空闲连接 -->
+		<property name="minIdle">
+			<value>${minIdle}</value>
+		</property>
+		<!-- 在进行borrowObject进行处理时，对拿到的connection进行validateObject校验 -->
+		<property name="testOnBorrow">
+			<value>false</value>
+		</property>
+		<!-- 在进行returnObject对返回的connection进行validateObject校验 -->
+		<property name="testOnReturn">
+			<value>false</value>
+		</property>
+		<!--是否要进行检测连接有效 -->
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<!--进行检测使用的有效的SQL语句 -->
+		<!-- 		<property name="validationQuery">
+                    <value>SELECT 1</value>
+                </property> -->
+		<!--每隔多少时间检测一次(默认毫秒)，根据mysql：wait_timeout值来设定 -->
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>${timeBetweenEvictionRunsMillis}</value>
+		</property>
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis">
+			<value>${minEvictableIdleTimeMillis}</value>
+		</property>
+		<!-- 开启池的prepared statement 池功能 -->
+		<property name="poolPreparedStatements">
+			<value>true</value>
+		</property>
+		<!-- 不限制 statement池能够同时分配的打开的statements的最大数量, 如果设置为0表示不限制 -->
+		<!-- <property name="maxOpenPreparedStatements" value="${maxOpenPreparedStatements}"></property> -->
+		<!-- 超过removeAbandonedTimeout时间后，是否进行没用连接（废弃）的回收（默认为false) -->
+		<property name="removeAbandoned" value="${removeAbandoned}" />
+		<!-- 超过时间限制，回收没有用(废弃)的连接（单位秒，默认为 300秒，5分钟） -->
+		<property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+		<!--每次检查链接的数量，建议设置和maxActive一样大，这样每次可以有效检查所有的链接.(默认为3个) -->
+		<property name="numTestsPerEvictionRun" value="${numTestsPerEvictionRun}" />
+		<!-- 关闭abanded连接时输出错误日志 -->
+		<property name="logAbandoned" value="${logAbandoned}"></property>
+	</bean>
 
 	<!-- mybatis-spring整合 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -128,7 +201,6 @@
 			</list>
 		</property>
 	</bean>
-
 	<!-- 自动扫描mybatis映射 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.richgo.mapper,com.message" />

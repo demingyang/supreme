@@ -3,10 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>supreme-parent-pom</artifactId>
+        <artifactId>supreme</artifactId>
         <groupId>com</groupId>
         <version>1.0.0</version>
-        <relativePath>../supreme-parent-pom/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -18,11 +18,6 @@
     </properties>
 
     <dependencies>
-
-
-
-
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>

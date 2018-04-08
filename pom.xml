@@ -20,6 +20,7 @@
         <module>supreme-parent-pom</module>
         <module>supreme-app</module>
         <module>supreme-server-parent</module>
+        <module>supreme-util</module>
 
     </modules>
 
