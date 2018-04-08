@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/supreme-app/supreme-app.iml" filepath="$PROJECT_DIR$/supreme-app/supreme-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/supreme-parent-pom/supreme-parent-pom.iml" filepath="$PROJECT_DIR$/supreme-parent-pom/supreme-parent-pom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/supreme-server-parent/supreme-server-api/supreme-server-api.iml" filepath="$PROJECT_DIR$/supreme-server-parent/supreme-server-api/supreme-server-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/supreme-server-parent/supreme-server-parent.iml" filepath="$PROJECT_DIR$/supreme-server-parent/supreme-server-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/supreme-server-parent/supreme-server-provider/supreme-server-provider.iml" filepath="$PROJECT_DIR$/supreme-server-parent/supreme-server-provider/supreme-server-provider.iml" />
+    </modules>
+  </component>
+</project>

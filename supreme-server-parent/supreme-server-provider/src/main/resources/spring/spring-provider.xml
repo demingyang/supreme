@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						 http://code.alibabatech.com/schema/dubbo  
+						  http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <!-- <dubbo:application name="${dubbo.application.name}"/>-->
+
+    <!-- 使用zookeeper注册中心暴露服务地址 即zookeeper的所在服务器ip地址和端口号 -->
+    <dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" check="false"  />
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <!-- <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}"/>-->
+
+    <!-- 具体的实现bean -->
+    <bean id="productService" class="com.richgo.service.product.impl.ProductServiceImpl"></bean>
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.richgo.service.product.ProductService" ref="productService" version="1.0.0" ></dubbo:service>
+
+    <!-- 具体的实现bean -->
+    <bean id="trackCustomerServiceImpl" class="com.richgo.service.customer.impl.TrackCustomerServiceImpl"></bean>
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.richgo.service.customer.ITrackCustomerService" ref="trackCustomerServiceImpl" version="1.0.0"></dubbo:service>
+
+    <bean id="advertisementService" class="com.richgo.service.advertisement.impl.AdvertisementServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.advertisement.AdvertisementService" ref="advertisementService" version="1.0.0"></dubbo:service>
+
+    <bean id="myScheduleService" class="com.richgo.service.my.schedule.impl.MyScheduleServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.my.schedule.MyScheduleService" ref="myScheduleService" version="1.0.0"></dubbo:service>
+
+    <bean id="myScheduleRemindService" class="com.richgo.service.my.schedule.impl.MyScheduleRemindServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.my.schedule.MyScheduleRemindService" ref="myScheduleRemindService" version="1.0.0"></dubbo:service>
+
+    <bean id="empService" class="com.richgo.service.emp.impl.EmpServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.emp.EmpService" ref="empService" version="1.0.0"></dubbo:service>
+
+    <bean id="orgService" class="com.richgo.service.org.impl.OrgServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.org.OrgService" ref="orgService" version="1.0.0"></dubbo:service>
+
+    <bean id="postService" class="com.richgo.service.post.impl.PostServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.post.PostService" ref="postService" version="1.0.0"></dubbo:service>
+
+    <bean id="postJobService" class="com.richgo.service.post.job.impl.PostJobServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.post.job.PostJobService" ref="postJobService" version="1.0.0"></dubbo:service>
+
+  	<bean id="loginLogService" class="com.richgo.service.login.log.impl.LoginLogServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.login.log.LoginLogService" ref="loginLogService" version="1.0.0"></dubbo:service>
+
+    <bean id="versionService" class="com.richgo.service.version.impl.VersionServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.version.VersionService" ref="versionService" version="1.0.0"></dubbo:service>
+    
+    <bean id="empAliasService" class="com.richgo.service.emp.alias.impl.EmpAliasServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.emp.alias.EmpAliasService" ref="empAliasService" version="1.0.0"></dubbo:service>
+
+    <bean id="myMessagesServiceImpl" class="com.richgo.service.my.messages.impl.MyMessagesServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.my.messages.IMyMessagesService" ref="myMessagesServiceImpl" version="1.0.0"></dubbo:service>
+    
+   	<bean id="pollLogService" class="com.richgo.service.poll.log.impl.PollLogServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.poll.log.PollLogService" ref="pollLogService" version="1.0.0"></dubbo:service>
+
+    <bean id="importantProductServiceImpl" class="com.richgo.service.product.impl.ImportantProductServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.product.ImportantProductService" ref="importantProductServiceImpl" version="1.0.0"></dubbo:service>
+
+    <bean id="assetStockService" class="com.richgo.service.customer.impl.AssetStockServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.customer.AssetStockService" ref="assetStockService" version="1.0.0"></dubbo:service>
+
+    <!--图文消息服务-->
+    <bean id="teletextInfoService" class="com.richgo.service.news.imagetext.TeletextInfoServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.news.imagetext.ITeletextInfoService" ref="teletextInfoService" version="1.0.0"></dubbo:service>
+    <!--产品引导页服务-->
+    <bean id="productGuideService" class="com.richgo.service.news.imagetext.ProductGuideServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.news.imagetext.IProductGuideService" ref="productGuideService" version="1.0.0"></dubbo:service>
+    <!--图文资讯字典服务-->
+    <bean id="classfyDicServce" class="com.richgo.service.news.imagetext.TeletextInfoClassfyDicServceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.news.imagetext.ITeletxtClassfyDicService" ref="classfyDicServce" version="1.0.0"></dubbo:service>
+    <!--图文消息-->
+    <bean id="teletextMessageService" class="com.richgo.service.news.message.TeletextMessageServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.news.message.TeletextMessageService" ref="teletextMessageService" version="1.0.0" retries="0"></dubbo:service>
+    <!--存管消息-->
+    <bean id="depositMessageService" class="com.richgo.service.news.message.DepositMessageServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.news.message.DepositMessageService" ref="depositMessageService" version="1.0.0" retries="0"></dubbo:service>
+    <!--运维消息-->
+    <bean id="messageOperationService" class="com.richgo.service.news.message.OperationMessageServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.news.message.OperationMessageService" ref="messageOperationService" version="1.0.0" retries="0"></dubbo:service>
+    <!--系统消息-->
+    <bean id="messageSystemService" class="com.richgo.service.news.message.SystemMessageServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.news.message.SystemMessageService" ref="messageSystemService" version="1.0.0" retries="0"></dubbo:service>
+    <!--推送消息-->
+    <bean id="messageSendProxyService" class="com.richgo.service.news.message.MessageSendProxyServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.news.message.MessageSendProxyService" ref="messageSendProxyService" version="1.0.0" retries="0"></dubbo:service>
+
+    <bean id="dataMsgServiceImpl" class="com.richgo.service.data.impl.DataMsgServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.data.DataMsgService" ref="dataMsgServiceImpl" version="1.0.0"></dubbo:service>
+
+    <bean id="teletextMessageTargetService" class="com.richgo.service.news.message.TeletextMessageTargetServiceImpl"></bean>
+    <dubbo:service interface="com.richgo.service.news.message.TeletextMessageTargetService" ref="teletextMessageTargetService" version="1.0.0"></dubbo:service>
+
+</beans>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com</groupId>
+  <artifactId>supreme-server-parent</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <name>supreme-server-parent</name>
+  <!--<url>http://172.16.163.52:8081/nexus</url>-->
+
+  <parent>
+    <groupId>com</groupId>
+    <artifactId>supreme</artifactId>
+    <version>1.0.0</version>
+  </parent>
+  
+  <modules>
+    <module>supreme-server-api</module>
+    <module>supreme-server-provider</module>
+  </modules>
+</project>
