@@ -1,8 +1,8 @@
 package com.chtwm.insurance.agency.base.interceptor;
 
-import com.richgo.common.CodeConts;
-import com.richgo.common.ResultJson;
-import com.richgo.util.ConfigUtil;
+import com.common.CodeConts;
+import com.common.ResultJson;
+import com.util.ConfigUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;

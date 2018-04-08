@@ -164,18 +164,18 @@
 		<!--<property name="uploadTempDir" value="/upload" />-->
 	</bean>
 
-	<bean class="com.richgo.listener.MyApplicationContextAware"></bean>
+	<bean class="com.listener.MyApplicationContextAware"></bean>
 
 <!--	 系统启动后初始化信息
 	<bean id="startAfterListener" class="com.richgo.base.listener.StartAfterListener"></bean>-->
 
-	<bean class="com.richgo.swagger.RichgoSwaggerConfig" />
-	<bean class="com.richgo.servlet.handler.RichgoSimpleMappingExceptionResolver" />
+	<bean class="com.swagger.RichgoSwaggerConfig" />
+	<bean class="com.servlet.handler.RichgoSimpleMappingExceptionResolver" />
 	<!-- junit测试时候打开下一行 -->
 	<!--<bean id="servletContext" class="org.springframework.mock.web.MockServletContext"/> -->
 	<!-- <bean class="com.ryfinance.base.listener.StaredAfterListener"></bean> -->
 
-	<bean id="methodExecuteTime" class="com.richgo.aspect.Aspect" />
+	<bean id="methodExecuteTime" class="com.aspect.Aspect" />
 
 	<aop:config>
 		<aop:aspect id="logMethodExecuteTime" ref="methodExecuteTime" >
