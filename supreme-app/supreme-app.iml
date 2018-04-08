@@ -25,24 +25,16 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.3.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-core:4.3.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-context:4.3.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-aop:4.3.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.3.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: com.alibaba:dubbo:2.5.3" level="project" />
-    <orderEntry type="library" name="Maven: org.javassist:javassist:3.15.0-GA" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.netty:netty:3.2.5.Final" level="project" />
-    <orderEntry type="library" name="Maven: javax:javaee-api:7.0" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.mail:javax.mail:1.5.0" level="project" />
-    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-web:4.3.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.13" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:4.3.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.4" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:4.3.6.RELEASE" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:unknown" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context:unknown" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:dubbo:unknown" level="project" />
+    <orderEntry type="library" name="Maven: javax:javaee-api:unknown" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-web:unknown" level="project" />
+    <orderEntry type="library" name="Maven: log4j:log4j:unknown" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:unknown" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:unknown" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:unknown" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-test:unknown" level="project" />
+    <orderEntry type="module" module-name="supreme-util" />
   </component>
 </module>

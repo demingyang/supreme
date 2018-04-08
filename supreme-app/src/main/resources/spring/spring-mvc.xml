@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/mvc
+						http://www.springframework.org/schema/mvc/spring-mvc.xsd
+						http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+          				http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!--注解控测器 设置使用注解的类所在的jar包 -->
+	<context:component-scan base-package="com">
+		<!-- 必须使service层在control之前被扫描，否则control中装载的service不包含事务增强 -->
+		<!-- 扫描所有的controller 但是不扫描service -->
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+
+	<!-- 映射静态资源 -->
+	<!--<mvc:resources mapping="/js/**" location="/js/"/> <mvc:resources mapping="/css/**" 
+		location="/css/"/> <mvc:resources mapping="/images/**" location="/images/"/> -->
+	<!-- 对静态资源文件的访问，交给default servlet handler处理 -->
+	<mvc:default-servlet-handler />
+
+	<!-- MVC注解驱动 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="false">
+			<bean id="jacksonMessageConverter"
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<!-- 这里顺序不能反，一定先写text/html,不然ie下出现下载提示 -->
+						<value>text/html;charset=UTF-8</value>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 拦截器配置 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean id="authInterceptor" class="com.base.interceptor.AuthInterceptor">
+				<property name="staticFiles">
+					<!--不拦截 -->
+					<list>
+						<value>/free</value>
+					</list>
+				</property>
+				<property name="allowUrls">
+					<list>
+						<!--不拦截 -->
+						<value>/api/emp/register</value>
+						<value>/api/emp/login</value>
+						<value>/api/emp/entryFailure</value>
+						<value>/api/emp/sendVerificationCode</value>
+						<value>/api/home/checkVersion</value>
+						<value>/api/emp/findPassword</value>
+						<value>/api/emp/checkVerificationCode</value>
+						<value>/api/emp/getMobile</value>
+						<value>/api/product/downloadProductContractMaterial</value>
+						<!--渠道访问路径-->
+						<value>/api/channel</value>
+						<!--获取手机设备信息-->
+						<value>/api/data/phone/collect</value>
+						<value>/api/data/useraction/switch</value>
+						<value>/api/data/useraction/collect</value>
+					</list>
+				</property>
+				<property name="swaggerUrls">
+					<list>
+						<!--swagger相关请求不拦截 -->
+						<value>/swagger</value>
+						<value>/v2/api-docs</value>
+						<value>/webjars</value>
+					</list>
+				</property>
+				<property name="forbidUrls">
+					<list>
+						<!--禁止访问的地址 -->
+						<value>/api/emp/register</value>
+						<value>/api/product/productContractMaterial</value>
+						<value>/api/product/productTrainingMaterials</value>
+						<value>/api/product/productQAEnclosure</value>
+						<value>/api/product/productQAKeyWord</value>
+						<value>/api/product/productQAList</value>
+						<value>/api/customer/deleteTrackCustomer</value>
+						<value>/api/customer/updateTrackCustomer</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<bean id="contentNegotiationManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorParameter" value="false" />
+		<!-- 设置为true以忽略对Accept Header的支持 -->
+		<property name="ignoreAcceptHeader" value="true" />
+
+		<!-- 在没有扩展名时即: "/blog/1" 时的默认展现形式 -->
+		<property name="defaultContentType" value="text/html" />
+
+		<!-- 扩展名至mimeType的映射,即 /blog.json => application/json -->
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html" />
+				<entry key="json" value="application/json" />
+
+				<!-- 后续需要支持这些格式，再放开 <entry key="pdf" value="application/pdf" /> <entry 
+					key="xsl" value="application/vnd.ms-excel" /> <entry key="xml" value="application/xml" 
+					/> -->
+			</map>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="1" />
+		<property name="contentNegotiationManager" ref="contentNegotiationManager" />
+
+		<property name="viewResolvers">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="viewClass"
+						value="org.springframework.web.servlet.view.JstlView" />
+					<property name="prefix" value="/" />
+					<property name="suffix" value=".html"></property>
+				</bean>
+			</list>
+		</property>
+
+		<property name="defaultViews">
+			<list>
+				<!-- application/json ModelAndView里的数据变成JSON -->
+				<bean
+					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+				<!-- application/xml -->
+				<!-- <bean class="org.springframework.web.servlet.view.xml.MarshallingView"> 
+					<property name="marshaller"> <bean class="org.springframework.oxm.xstream.XStreamMarshaller"> 
+					</bean> </property> </bean> -->
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- 文件上传解析器 id 必须为multipartResolver 10M -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 上传的最大字节数，-1代表没有任何限制 1024*1024*4=4194304即4m -->
+		<property name="maxUploadSize" value="4194304" />
+		<!-- 读取文件到内存中最大的字节数，默认是1024 -->
+		<property name="maxInMemorySize" value="1024" />
+		<!-- 文件上传头部编码，默认是iso-8859-1，注意defaultEncoding必须和前端页面pageEncoding属性一致，以便能正常读取文件 -->
+		<property name="defaultEncoding" value="UTF-8" />
+		<!-- 文件上传暂存目录，文件上传完成之后会清除该目录，模式是在servlet容器的临时目录，例如tomcat的话，就是在tomcat文件夹的temp目录 -->
+		<!--<property name="uploadTempDir" value="/upload" />-->
+	</bean>
+
+	<bean class="com.richgo.listener.MyApplicationContextAware"></bean>
+
+<!--	 系统启动后初始化信息
+	<bean id="startAfterListener" class="com.richgo.base.listener.StartAfterListener"></bean>-->
+
+	<bean class="com.richgo.swagger.RichgoSwaggerConfig" />
+	<bean class="com.richgo.servlet.handler.RichgoSimpleMappingExceptionResolver" />
+	<!-- junit测试时候打开下一行 -->
+	<!--<bean id="servletContext" class="org.springframework.mock.web.MockServletContext"/> -->
+	<!-- <bean class="com.ryfinance.base.listener.StaredAfterListener"></bean> -->
+
+	<bean id="methodExecuteTime" class="com.richgo.aspect.Aspect" />
+
+	<aop:config>
+		<aop:aspect id="logMethodExecuteTime" ref="methodExecuteTime" >
+			<aop:pointcut id="controllerMethods" expression="execution(* com.richgo.controller..*.*(..)) " />
+			<aop:around method="methodExecuteTime" pointcut-ref="controllerMethods" />
+		</aop:aspect>
+	</aop:config>
+
+</beans>

@@ -58,6 +58,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com</groupId>
+            <artifactId>supreme-util</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <profiles>
